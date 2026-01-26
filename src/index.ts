@@ -1,9 +1,14 @@
 import * as path from "https://deno.land/std@0.224.0/path/mod.ts";
 import { Eta } from "https://deno.land/x/eta@v3.0.3/src/index.ts";
 import { parseArgs } from "jsr:@std/cli/parse-args";
+import { join } from "https://deno.land/std/path/mod.ts";
 
-const __dirname = new URL(".", import.meta.url).pathname;
-const eta = new Eta({ views: path.join(__dirname, 'public'), cache: true });
+const eta = new Eta({
+  views: join(Deno.cwd(), "src", "public"),
+});
+
+//const __dirname = new URL(".", import.meta.url).pathname;
+//const eta = new Eta({ views: path.join(__dirname, 'public'), cache: true });
 
 const flags = parseArgs(Deno.args, {
   string: ["port"],
