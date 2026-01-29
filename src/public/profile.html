@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - GA Tutorials</title>
+<link rel="stylesheet" href="index.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+  <div class="container-lg">
+    <a class="navbar-brand" href="index.html">Google Analytics Tutorials</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="profile.html">Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container-lg pt-3">
+<h1>Choose your role:</h1>
+<form id="profile-form" action="#">
+  <div class="form-group">
+    <label for="job-function">Job Function</label>
+    <select class="form-control" id="job-function" name="job-function">
+      <option selected disabled>Choose One</option>
+      <option value="business_owner">Business Owner</option>
+      <option value="developer">Developer</option>
+      <option value="marketer">Marketer</option>
+      <option value="other">Other</option>
+    </select>
+    <small>This example shows how to set user properties in Google Analytics.</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</main>
+
+<footer class="bg-light pb-4 pt-4">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <h6>Google Analytics</h6>
+    </div>
+  </div>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
