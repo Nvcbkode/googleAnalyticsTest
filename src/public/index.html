@@ -135,5 +135,53 @@ function setConsent(consent){
 }
 </script>
 
+  <!-- Debug Panel -->
+<div class="container-sm">
+  <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#debug-panel">Toggle debug panel</button>
+  <div class="collapse" id="debug-panel" style="margin-bottom:1rem;">
+      <button id="btn-fetch" class="btn btn-outline-primary">Fetch debug values</button>
+      <button id="btn-clear" class="btn btn-outline-warning">Clear client & session</button>
+      <br/>
+      <label>GA4 Tag ID</label><input type="text" class="form-control" id="tag-id" disabled>
+      <label>GA4 Session ID</label><input type="text" class="form-control" id="session-id" disabled>
+      <label>GA4 Client ID</label><input type="text" class="form-control" id="client-id" disabled>
+      <label>GA4 User ID</label><input type="text" class="form-control" id="user-id" disabled>
+  </div>
+</div>
+
+<script>
+function setIds(){
+  var gtagIds=Object.keys(window.google_tag_manager||[]).filter(e=>e.substring(0,2)=='G-');
+  if(gtagIds.length>0){
+    const firstTagId=gtagIds[0];
+    const tagIdField=document.getElementById('tag-id');
+    const sessionIdField=document.getElementById('session-id');
+    const clientIdField=document.getElementById('client-id');
+    const userIdField=document.getElementById('user-id');
+
+    Promise.all([
+      firstTagId,
+      localStorage.getItem('userId'),
+      new Promise(cid=>gtag('get',firstTagId,'client_id',cid)),
+      new Promise(sid=>gtag('get',firstTagId,'session_id',sid))
+    ]).then(([tagId,userId,clientId,sessionId])=>{
+      tagIdField.value=tagId;
+      userIdField.value=userId;
+      clientIdField.value=clientId;
+      sessionIdField.value=sessionId;
+      console.log(JSON.stringify({user_id:userId, client_id:clientId, session_id:sessionId}, null, '  '));
+    });
+  }
+}
+document.getElementById('btn-fetch').addEventListener("click", setIds);
+
+function clearCookies(){
+  document.cookie.split('; ').map(c=>c.split('=')[0]).forEach(name=>document.cookie=name+'=; expires=Thu, 01 Jan 1970 00:00:01 GMT;');
+  location.reload();
+}
+document.getElementById('btn-clear').addEventListener("click", clearCookies);
+document.getElementById('debug-panel').addEventListener('shown.bs.collapse', ()=>setIds());
+</script>
+
 </body>
 </html>
