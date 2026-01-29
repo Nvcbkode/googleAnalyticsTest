@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - GA Tutorials</title>
+<link rel="stylesheet" href="index.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+  <div class="container-lg">
+    <a class="navbar-brand" href="index.html">Google Analytics Tutorials</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+        <li class="nav-item"><a class="nav-link active" href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container-lg pt-3">
+<h1>Simulate login to set User ID</h1>
+<form id="login-form">
+  <div class="form-group">
+    <label for="user">GA4 User ID</label>
+    <input type="text" class="form-control" id="user" placeholder="Enter User ID">
+    <small class="form-text text-muted">This form simply sets your User ID. Submit empty to log out.</small>
+  </div>
+  <button type="submit" id="btn-login" class="btn btn-primary">Submit</button>
+  <button type="button" id="gen-id" class="btn btn-info">Generate ID</button>
+  <button type="button" id="btn-logout" class="btn btn-warning">Log out</button>
+</form>
+</main>
+
+<script>
+document.getElementById('btn-login').addEventListener('click', function(e){
+  e.preventDefault();
+  loginUserId(document.getElementById('user').value);
+});
+function loginUserId(userId){ localStorage.setItem('userId', userId); }
+
+document.getElementById('btn-logout').addEventListener('click', function(){
+  localStorage.removeItem('userId'); document.getElementById('user').value = '';
+});
+document.getElementById('gen-id').addEventListener('click', function(){
+  const prefixes=['doubloons','oceanographer','retrogressed','unmistakably','counterbalanced','wainscottings','servomechanism','expressionist','preciousness','fossilization','conglomerated','anthropomorphism','reappointment','transfigures','choreographer','sophisticated','calibrations','propitiating','effortlessly','prioritizing','rechargeable','thermostatic','acclimatization'];
+  const randIndex=Math.floor(Math.random()*prefixes.length);
+  const randId=Math.floor(Math.random()*1e12);
+  document.getElementById('user').value = prefixes[randIndex]+'-'+randId;
+});
+window.onload=()=>document.getElementById('user').value = localStorage.getItem('userId');
+</script>
+
+<footer class="bg-light pb-4 pt-4">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <h6>Google Analytics</h6>
+    </div>
+  </div>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
